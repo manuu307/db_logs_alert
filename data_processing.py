@@ -1,6 +1,7 @@
 from datasources.models import *
 from send_mail import *
 from query import *
+from config import *
 
 
 class Compare:
@@ -21,7 +22,10 @@ class Compare:
                 if row not in self.stored_data:
                     self.data.append(row)
         if self.data:
-            message = 'From: Arcanus Notificaciones <rafap@arcanus.com.uy> \n' 'Subject: Movimientos de logs (TESTING)\n'
+            # add To: and Subject: to the message
+
+            message = 'From: Arcanus Notificaciones <rafap@arcanus.com.uy> \n' 'Subject: Movimientos de logs (TESTING) \n' 'To: ' + \
+                receiver_email_+'\n'
             message += "Los siguientes movimientos fueron registrados en el log de TESTING: \n"
             for row in self.data:
                 message += "\n" + "TIMESTAMP : " + str(row[0]) + " | " + "USERNAME : " + str(row[1]) + " | " + "OS_USERNAME: " + str(row[2]) + " | " + "ACTION: " + str(
