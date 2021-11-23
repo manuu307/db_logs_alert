@@ -4,15 +4,16 @@ from config import *
 
 
 class SendMail:
-    def __init__(self, receiver_email, message):
+    def __init__(self, message):
         smtp_server = smtp_server_  # "smtp.gmail.com"
         sender_email = sender_email_
-        port = port_  # 465 For SSL
-        self.receiver_email = receiver_email
-        password = password_
+        port = email_port_  # 465 For SSL
+        receiver_email = receiver_email_
+        password = email_password_
         self.message = message
         # Create a secure SSL context
         context = ssl.create_default_context()
+        print("port:", port)
         if port == 465:
             with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
                 try:
