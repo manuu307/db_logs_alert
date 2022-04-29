@@ -4,7 +4,21 @@ from send_mail import SendMail
 from config import *
 
 query = """
-
+SELECT
+   TO_CHAR(TIMESTAMP,'MM/DD HH24:MI:SS') TIMESTAMP,
+   SUBSTR(USERNAME,1,20) USERNAME,
+   OS_USERNAME,
+   ACTION_NAME,
+   OWNER,
+   OBJ_NAME,
+   RETURNCODE
+FROM
+   DBA_AUDIT_TRAIL2
+WHERE
+   USERNAME='JURTIAGA' And timestamp > sysdate - 20/1440
+   order by TIMESTAMP asc
+"""
+old_query = """
 SELECT
     TO_CHAR(TIMESTAMP,'MM/DD HH24:MI:SS') TIMESTAMP,
     SUBSTR(USERNAME,1,20) USERNAME,
